@@ -3,6 +3,7 @@
 (setq gc-cons-threshold 402653184
       gc-cons-percentage 0.6)
 (setq read-process-output-max (* 1024 1024 3))
+(setq use-package-always-defer t)
 
 ;; arquivo separado pro emacs n foder minha config.
 (setq custom-file "~/.emacs.d/custom.el")
@@ -57,6 +58,7 @@
 ;; dashboard c:
 (use-package dashboard
   :ensure t
+  :defer nil
   :config
   (setq dashboard-items '(
 						  (projects  . 5)
@@ -64,6 +66,9 @@
                           (bookmarks . 5)))
   (setq dashboard-banner-logo-title "year of the linux desktop!")
   (setq dashboard-startup-banner "~/.emacs.d/banner/logo1234.png")
+    (setq dashboard-set-init-info t)
+  (setq dashboard-init-info (format "%d packages loaded in %s"
+                                    (length package-activated-list) (emacs-init-time)))
   (dashboard-setup-startup-hook))
 
 ;; diminish
@@ -90,6 +95,11 @@
 
 ;; ibuffer
 (global-set-key (kbd "C-x C-b") 'ibuffer)
+
+(use-package avy
+  :ensure t
+  :bind
+  ("M-s" . avy-goto-char))
 
 ;; swiper
 (use-package ivy
@@ -195,6 +205,7 @@
   (setq lsp-clangd-version "18.1.3")
   :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
          (c-mode . lsp)
+;;		 (c++-mode . lsp)
 		 (rust-mode . lsp)
 	 ;;  				 (simpc-mode . lsp)
          ;; if you want which-key integration
@@ -233,6 +244,7 @@
 (add-to-list 'load-path "~/.emacs.d/coisas")
 ;; Importing simpc-mode
 (require 'simpc-mode)
+(require 'fasm-mode)
 ;; Automatically enabling simpc-mode on files with extensions like .h, .c, .cpp, .hpp
 ;;(add-to-list 'auto-mode-alist '("\\.[hc]\\(pp\\)?\\'" . simpc-mode))
 
