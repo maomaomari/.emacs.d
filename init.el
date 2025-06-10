@@ -245,6 +245,7 @@
 ;; Importing simpc-mode
 (require 'simpc-mode)
 (require 'fasm-mode)
+(add-to-list 'auto-mode-alist '("\\.asm\\'" . fasm-mode))
 ;; Automatically enabling simpc-mode on files with extensions like .h, .c, .cpp, .hpp
 ;;(add-to-list 'auto-mode-alist '("\\.[hc]\\(pp\\)?\\'" . simpc-mode))
 
