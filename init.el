@@ -207,6 +207,7 @@
          (c-mode . lsp)
 ;;		 (c++-mode . lsp)
 		 (rust-mode . lsp)
+;;		 (python-mode . lsp)
 	 ;;  				 (simpc-mode . lsp)
          ;; if you want which-key integration
          (lsp-mode . lsp-enable-which-key-integration))
@@ -251,6 +252,8 @@
 
 ;; rust
 (use-package rust-mode
+  :ensure t)
+(use-package cmake-mode
   :ensure t)
 
 ;; custom func
