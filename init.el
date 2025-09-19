@@ -245,7 +245,9 @@
 ;; magit
 (use-package magit
   :ensure t)
-
+;; projectile
+(add-to-list 'projectile-project-search-path "/home/clari/prog/ros_ws/src/")
+(projectile-discover-projects-in-search-path)
 ;; treemacs
 (use-package treemacs
   :ensure t
@@ -411,7 +413,8 @@
     (switch-to-buffer-other-window "*eshell*")))
 
 (global-set-key (kbd "<C-return>") 'eshell-other-window)
-
+(use-package vterm
+  :ensure t)
 ;; split window
 (defun split-and-follow-horizontally ()
   (interactive)
