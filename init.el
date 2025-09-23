@@ -60,6 +60,7 @@
   :ensure t
   :defer nil
   :config
+  (setq dashboard-projects-backend 'projectile)
   (setq dashboard-items '(
 						  (projects  . 5)
 						  (recents   . 5)
