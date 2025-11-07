@@ -40,6 +40,9 @@
 
 (add-to-list 'default-frame-alist '(font . "Iosevka-12"))
 
+;; dired
+(setf dired-kill-when-opening-new-dired-buffer t)
+
 ;; tab
 (setq-default tab-width 4)
 (setq-default standard-indent 4)
