@@ -44,11 +44,13 @@
 (setf dired-kill-when-opening-new-dired-buffer t)
 
 ;; tab
-(setq-default tab-width 4)
-(setq-default standard-indent 4)
+(setq-default tab-width 8)
+(setq-default standard-indent 8)
+(setq-default c-default-style "linux")
 (setq c-basic-offset tab-width)
 (setq-default electric-indent-inhibit t)
 (setq-default indent-tabs-mode t)
+;;(setq-default c-default-style "linux")
 (setq backward-delete-char-untabify-method 'nil)
 (c-set-offset 'case-label tab-width)
 
@@ -63,16 +65,16 @@
   :ensure t
   :defer nil
   :config
-  (setq dashboard-projects-backend 'projectile)
+;;  (setq dashboard-projects-backend 'projectile)
   (setq dashboard-items '(
-						  (projects  . 5)
+;;						  (projects  . 5)
 						  (recents   . 5)
-                          (bookmarks . 5)))
+			  (bookmarks . 5)))
   (setq dashboard-banner-logo-title "year of the linux desktop!")
   (setq dashboard-startup-banner "~/.emacs.d/banner/logo1234.png")
     (setq dashboard-set-init-info t)
   (setq dashboard-init-info (format "%d packages loaded in %s"
-                                    (length package-activated-list) (emacs-init-time)))
+				    (length package-activated-list) (emacs-init-time)))
   (dashboard-setup-startup-hook))
 
 ;; diminish
@@ -125,14 +127,14 @@
 
 ;; eletric pair mode
 (setq electric-pair-pairs '(
-                            (?\{ . ?\})
-                            (?\( . ?\))
-                            (?\[ . ?\])
-                            (?\" . ?\")
-                            ))
+			    (?\{ . ?\})
+			    (?\( . ?\))
+			    (?\[ . ?\])
+			    (?\" . ?\")
+			    ))
 ;;(setq electric-pair-inhibit-predicate
-;;      '(lambda(c)
-;;         (if (char-equal c ?\<) t (,electric-pair-inhibit-predicate c))))
+;;	'(lambda(c)
+;;	   (if (char-equal c ?\<) t (,electric-pair-inhibit-predicate c))))
 (electric-pair-mode t)
 
 
@@ -145,7 +147,7 @@
   (setq switch-window-threshold 2)
   (setq switch-window-shortcut-style 'qwerty)
   (setq switch-window-qwerty-shortcuts
-        '("a" "s" "d" "f" "j" "k" "l"))
+	'("a" "s" "d" "f" "j" "k" "l"))
   :bind
   ([remap other-window] . switch-window))
 
@@ -195,27 +197,27 @@
   :ensure t)
 
 (setq yas-snippet-dirs
-      '("~/.emacs.d/snippets"                 ;; personal snippets
-        "~/.emacs.d/elpa/yasnippet-snippets-20250225.950/snippets/" ;; the yasmate collection
-        ))
+      '("~/.emacs.d/snippets"		      ;; personal snippets
+	"~/.emacs.d/elpa/yasnippet-snippets-20250225.950/snippets/" ;; the yasmate collection
+	))
 
 ;; lsp
 (use-package lsp-mode
   :ensure t
   :diminish
   :init
-  ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
+  ;; set prefix for lsp-command-keymap (few alternatives - "C-l",c "C-c l")
   (setq lsp-keymap-prefix "C-c l")
   :config
   (setq lsp-clangd-version "18.1.3")
   :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
-         (c-mode . lsp)
-;;		 (c++-mode . lsp)
-		 (rust-mode . lsp)
-;;		 (python-mode . lsp)
-	 ;;  				 (simpc-mode . lsp)
-         ;; if you want which-key integration
-         (lsp-mode . lsp-enable-which-key-integration))
+	 (c-mode . lsp)
+;;	 (c++-mode . lsp)
+	 (rust-mode . lsp)
+;;	 (python-mode . lsp)
+	 ;;				 (simpc-mode . lsp)
+	 ;; if you want which-key integration
+	 (lsp-mode . lsp-enable-which-key-integration))
   :commands lsp)
 (setq lsp-idle-delay 0.500)
 (setq lsp-log-io nil)
@@ -250,8 +252,8 @@
 (use-package magit
   :ensure t)
 ;; projectile
-(add-to-list 'projectile-project-search-path "/home/clari/prog/ros_ws/src/")
-(projectile-discover-projects-in-search-path)
+;;(add-to-list 'projectile-project-search-path "/home/clari/prog/ros_ws/src/")
+;;(projectile-discover-projects-in-search-path)
 ;; treemacs
 (use-package treemacs
   :ensure t
@@ -261,61 +263,61 @@
     (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
   :config
   (progn
-    (setq treemacs-buffer-name-function            #'treemacs-default-buffer-name
-          treemacs-buffer-name-prefix              " *Treemacs-Buffer-"
-          treemacs-collapse-dirs                   (if treemacs-python-executable 3 0)
-          treemacs-deferred-git-apply-delay        0.5
-          treemacs-directory-name-transformer      #'identity
-          treemacs-display-in-side-window          t
-          treemacs-eldoc-display                   'simple
-          treemacs-file-event-delay                2000
-          treemacs-file-extension-regex            treemacs-last-period-regex-value
-          treemacs-file-follow-delay               0.2
-          treemacs-file-name-transformer           #'identity
-          treemacs-follow-after-init               t
-          treemacs-expand-after-init               t
-          treemacs-find-workspace-method           'find-for-file-or-pick-first
-          treemacs-git-command-pipe                ""
-          treemacs-goto-tag-strategy               'refetch-index
-          treemacs-header-scroll-indicators        '(nil . "^^^^^^")
-          treemacs-hide-dot-git-directory          t
-          treemacs-indentation                     2
-          treemacs-indentation-string              " "
-          treemacs-is-never-other-window           nil
-          treemacs-max-git-entries                 5000
-          treemacs-missing-project-action          'ask
-          treemacs-move-files-by-mouse-dragging    t
-          treemacs-move-forward-on-expand          nil
-          treemacs-no-png-images                   nil
-          treemacs-no-delete-other-windows         t
-          treemacs-project-follow-cleanup          nil
-          treemacs-persist-file                    (expand-file-name ".cache/treemacs-persist" user-emacs-directory)
-          treemacs-position                        'left
-          treemacs-read-string-input               'from-child-frame
-          treemacs-recenter-distance               0.1
-          treemacs-recenter-after-file-follow      nil
-          treemacs-recenter-after-tag-follow       nil
-          treemacs-recenter-after-project-jump     'always
-          treemacs-recenter-after-project-expand   'on-distance
-          treemacs-litter-directories              '("/node_modules" "/.venv" "/.cask")
-          treemacs-project-follow-into-home        nil
-          treemacs-show-cursor                     nil
-          treemacs-show-hidden-files               t
-          treemacs-silent-filewatch                nil
-          treemacs-silent-refresh                  nil
-          treemacs-sorting                         'alphabetic-asc
-          treemacs-select-when-already-in-treemacs 'move-back
-          treemacs-space-between-root-nodes        t
-          treemacs-tag-follow-cleanup              t
-          treemacs-tag-follow-delay                1.5
-          treemacs-text-scale                      nil
-          treemacs-user-mode-line-format           nil
-          treemacs-user-header-line-format         nil
-          treemacs-wide-toggle-width               70
-          treemacs-width                           35
-          treemacs-width-increment                 1
-          treemacs-width-is-initially-locked       t
-          treemacs-workspace-switch-cleanup        nil)
+    (setq treemacs-buffer-name-function		   #'treemacs-default-buffer-name
+	  treemacs-buffer-name-prefix		   " *Treemacs-Buffer-"
+	  treemacs-collapse-dirs		   (if treemacs-python-executable 3 0)
+	  treemacs-deferred-git-apply-delay	   0.5
+	  treemacs-directory-name-transformer	   #'identity
+	  treemacs-display-in-side-window	   t
+	  treemacs-eldoc-display		   'simple
+	  treemacs-file-event-delay		   2000
+	  treemacs-file-extension-regex		   treemacs-last-period-regex-value
+	  treemacs-file-follow-delay		   0.2
+	  treemacs-file-name-transformer	   #'identity
+	  treemacs-follow-after-init		   t
+	  treemacs-expand-after-init		   t
+	  treemacs-find-workspace-method	   'find-for-file-or-pick-first
+	  treemacs-git-command-pipe		   ""
+	  treemacs-goto-tag-strategy		   'refetch-index
+	  treemacs-header-scroll-indicators	   '(nil . "^^^^^^")
+	  treemacs-hide-dot-git-directory	   t
+	  treemacs-indentation			   2
+	  treemacs-indentation-string		   " "
+	  treemacs-is-never-other-window	   nil
+	  treemacs-max-git-entries		   5000
+	  treemacs-missing-project-action	   'ask
+	  treemacs-move-files-by-mouse-dragging	   t
+	  treemacs-move-forward-on-expand	   nil
+	  treemacs-no-png-images		   nil
+	  treemacs-no-delete-other-windows	   t
+	  treemacs-project-follow-cleanup	   nil
+	  treemacs-persist-file			   (expand-file-name ".cache/treemacs-persist" user-emacs-directory)
+	  treemacs-position			   'left
+	  treemacs-read-string-input		   'from-child-frame
+	  treemacs-recenter-distance		   0.1
+	  treemacs-recenter-after-file-follow	   nil
+	  treemacs-recenter-after-tag-follow	   nil
+	  treemacs-recenter-after-project-jump	   'always
+	  treemacs-recenter-after-project-expand   'on-distance
+	  treemacs-litter-directories		   '("/node_modules" "/.venv" "/.cask")
+	  treemacs-project-follow-into-home	   nil
+	  treemacs-show-cursor			   nil
+	  treemacs-show-hidden-files		   t
+	  treemacs-silent-filewatch		   nil
+	  treemacs-silent-refresh		   nil
+	  treemacs-sorting			   'alphabetic-asc
+	  treemacs-select-when-already-in-treemacs 'move-back
+	  treemacs-space-between-root-nodes	   t
+	  treemacs-tag-follow-cleanup		   t
+	  treemacs-tag-follow-delay		   1.5
+	  treemacs-text-scale			   nil
+	  treemacs-user-mode-line-format	   nil
+	  treemacs-user-header-line-format	   nil
+	  treemacs-wide-toggle-width		   70
+	  treemacs-width			   35
+	  treemacs-width-increment		   1
+	  treemacs-width-is-initially-locked	   t
+	  treemacs-workspace-switch-cleanup	   nil)
 
     ;; The default width and height of the icons is 22 pixels. If you are
     ;; using a Hi-DPI display, uncomment this to double the icon size.
@@ -328,7 +330,7 @@
       (treemacs-git-commit-diff-mode t))
 
     (pcase (cons (not (null (executable-find "git")))
-                 (not (null treemacs-python-executable)))
+		 (not (null treemacs-python-executable)))
       (`(t . t)
        (treemacs-git-mode 'deferred))
       (`(t . _)
@@ -337,13 +339,13 @@
     (treemacs-hide-gitignored-files-mode nil))
   :bind
   (:map global-map
-        ("M-0"       . treemacs-select-window)
-        ("C-x t 1"   . treemacs-delete-other-windows)
-        ("C-x t t"   . treemacs)
-        ("C-x t d"   . treemacs-select-directory)
-        ("C-x t B"   . treemacs-bookmark)
-        ("C-x t C-t" . treemacs-find-file)
-        ("C-x t M-t" . treemacs-find-tag)))
+	("M-0"	     . treemacs-select-window)
+	("C-x t 1"   . treemacs-delete-other-windows)
+	("C-x t t"   . treemacs)
+	("C-x t d"   . treemacs-select-directory)
+	("C-x t B"   . treemacs-bookmark)
+	("C-x t C-t" . treemacs-find-file)
+	("C-x t M-t" . treemacs-find-tag)))
 
 (use-package treemacs-evil
   :after (treemacs evil)
@@ -380,6 +382,12 @@
 (add-to-list 'auto-mode-alist '("\\.asm\\'" . fasm-mode))
 ;; Automatically enabling simpc-mode on files with extensions like .h, .c, .cpp, .hpp
 ;;(add-to-list 'auto-mode-alist '("\\.[hc]\\(pp\\)?\\'" . simpc-mode))
+
+(add-hook 'c-mode-hook
+                  (lambda ()
+                    (setq indent-tabs-mode t)
+                    (setq c-basic-offset 8)
+                    (setq tab-width 8)))
 
 ;; rust
 (use-package rust-mode
