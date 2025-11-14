@@ -42,6 +42,7 @@
 
 ;; dired
 (setf dired-kill-when-opening-new-dired-buffer t)
+(add-hook 'dired-mode-hook 'auto-revert-mode)
 
 ;; tab
 (setq-default tab-width 8)
