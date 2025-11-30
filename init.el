@@ -47,13 +47,19 @@
 ;; tab
 (setq-default tab-width 8)
 (setq-default standard-indent 8)
-(setq-default c-default-style "linux")
+(setq-default c-default-style "bsd")
 (setq c-basic-offset tab-width)
 (setq-default electric-indent-inhibit t)
 (setq-default indent-tabs-mode t)
 ;;(setq-default c-default-style "linux")
 (setq backward-delete-char-untabify-method 'nil)
 (c-set-offset 'case-label tab-width)
+
+(add-hook 'rust-mode-hook
+          (lambda ()
+            (setq tab-width 8)
+			(setq indent-tabs-mode nil)
+			(setq rust-indent-unit 8)))
 
 ;; y-n
 (defalias 'yes-or-no-p 'y-or-n-p)
@@ -210,7 +216,7 @@
   ;; set prefix for lsp-command-keymap (few alternatives - "C-l",c "C-c l")
   (setq lsp-keymap-prefix "C-c l")
   :config
-  (setq lsp-clangd-version "18.1.3")
+;  (setq lsp-clangd-version "18.1.3")
   :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
 	 (c-mode . lsp)
 ;;	 (c++-mode . lsp)
