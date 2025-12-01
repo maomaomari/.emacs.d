@@ -47,13 +47,19 @@
 ;; tab
 (setq-default tab-width 8)
 (setq-default standard-indent 8)
-;;(setq-default c-default-style "bsd")
+
 (setq c-basic-offset tab-width)
 (setq-default electric-indent-inhibit t)
 (setq-default indent-tabs-mode t)
 ;;(setq-default c-default-style "linux")
 (setq backward-delete-char-untabify-method 'nil)
 (c-set-offset 'case-label tab-width)
+
+(add-hook 'rust-mode-hook
+          (lambda ()
+            (setq tab-width 8)
+			(setq indent-tabs-mode nil)
+			(setq rust-indent-unit 8)))
 
 ;; y-n
 (defalias 'yes-or-no-p 'y-or-n-p)
@@ -216,6 +222,8 @@
   (setq lsp-enable-formatting nil)
   (setq lsp-enable-on-type-formatting nil)
   
+=======
+>>>>>>> ec56a9b53e3798b5de64725e9dd83a68664fa8a6
   :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
 	 (c-mode . lsp)
 ;;	 (c++-mode . lsp)
