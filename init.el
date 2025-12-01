@@ -47,7 +47,7 @@
 ;; tab
 (setq-default tab-width 8)
 (setq-default standard-indent 8)
-(setq-default c-default-style "linux")
+;;(setq-default c-default-style "bsd")
 (setq c-basic-offset tab-width)
 (setq-default electric-indent-inhibit t)
 (setq-default indent-tabs-mode t)
@@ -210,7 +210,12 @@
   ;; set prefix for lsp-command-keymap (few alternatives - "C-l",c "C-c l")
   (setq lsp-keymap-prefix "C-c l")
   :config
-  (setq lsp-clangd-version "18.1.3")
+;  (setq lsp-clangd-version "18.1.3")
+  (setq lsp-clients-clangd-args '("--fallback-style=none"))
+  (setq lsp-enable-indentation nil)
+  (setq lsp-enable-formatting nil)
+  (setq lsp-enable-on-type-formatting nil)
+  
   :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
 	 (c-mode . lsp)
 ;;	 (c++-mode . lsp)
