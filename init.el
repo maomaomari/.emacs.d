@@ -222,8 +222,6 @@
   (setq lsp-enable-formatting nil)
   (setq lsp-enable-on-type-formatting nil)
   
-=======
->>>>>>> ec56a9b53e3798b5de64725e9dd83a68664fa8a6
   :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
 	 (c-mode . lsp)
 ;;	 (c++-mode . lsp)
