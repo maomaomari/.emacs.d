@@ -51,7 +51,6 @@
 (setq c-basic-offset tab-width)
 (setq-default electric-indent-inhibit t)
 (setq-default indent-tabs-mode t)
-;;(setq-default c-default-style "linux")
 (setq backward-delete-char-untabify-method 'nil)
 (c-set-offset 'case-label tab-width)
 
@@ -399,7 +398,8 @@
                   (lambda ()
                     (setq indent-tabs-mode t)
                     (setq c-basic-offset 8)
-                    (setq tab-width 8)))
+                    (setq tab-width 8)
+					(setq c-set-style 'bsd)))
 
 ;; rust
 (use-package rust-mode
@@ -423,6 +423,17 @@
     (forward-char column)))
 
 (global-set-key (kbd "C-,") 'rc/duplicate-line)
+
+(use-package multiple-cursors
+  :ensure t
+  )
+
+(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+(global-set-key (kbd "C->")         'mc/mark-next-like-this)
+(global-set-key (kbd "C-<")         'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<")     'mc/mark-all-like-this)
+(global-set-key (kbd "C-\"")        'mc/skip-to-next-like-this)
+(global-set-key (kbd "C-:")         'mc/skip-to-previous-like-this)
 
 ;; eshell
 (defun eshell-other-window ()
@@ -455,3 +466,14 @@
 (global-set-key (kbd "C-x 3") 'split-and-follow-vertically)
 
 ;;
+(use-package web-mode
+  :ensure t
+  :mode
+  (("\\.phtml\\'" . web-mode)
+   ("\\.php\\'" . web-mode)
+   ("\\.tpl\\'" . web-mode)
+   ("\\.[agj]sp\\'" . web-mode)
+   ("\\.as[cp]x\\'" . web-mode)
+   ("\\.erb\\'" . web-mode)
+   ("\\.mustache\\'" . web-mode)
+   ("\\.djhtml\\'" . web-mode)))
